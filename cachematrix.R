@@ -11,7 +11,8 @@
 
 
 
-## Returns an object that stores original and cached matrix with getter/setter methods
+# Returns an object that stores original and cached matrix with getter/setter methods.
+# Parameter x - matrix that will be used in resource-intensive calculations. 
 makeCacheMatrix <- function(x = matrix()) {
 	cachedResult <- NULL
 	set <- function(y) {
@@ -30,7 +31,8 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Returns a matrix that is the inverse of 'x'. Uses cached result if possible.
+# Returns a matrix that is the inverse of 'x'. Uses cached result if possible.
+# Parameter x - 'matrix' cache object returned by the makeCacheMatrix function
 cacheSolve <- function(x, ...) {
       ## First try to get result from the cache
 	result <- x$getCache() 
