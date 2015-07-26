@@ -1,8 +1,17 @@
-## Put comments here that give an overall description of what your
-## functions do
+## To improve performance it makes sense to cache results of resource-intensive 
+## calculations. 
+##
+## The function 'makeCacheMatrix' returns an R object that stores original and cached
+## values of matrix type and provides getter/setter methods. It's not specific to
+## calculation of inverse matrix and can be used to cache any matrix values. 
+##
+## The second function 'cacheSolve' calculates the matrix inversion trying to
+## get value from the cache first. If there is no cached result yet it uses
+## the 'solve' function of the base R package to calculate the result.
 
-## Write a short comment describing this function
 
+
+## Returns an object that stores original and cached matrix with getter/setter methods
 makeCacheMatrix <- function(x = matrix()) {
 	cachedResult <- NULL
 	set <- function(y) {
@@ -13,7 +22,7 @@ makeCacheMatrix <- function(x = matrix()) {
 	setCache <- function(newValue) cachedResult <<- newValue
 	getCache <- function() cachedResult 
 
-	# return list of four functions specified above
+	# return a list of four functions specified above
 	list( set = set, 
 		get = get,
 		setCache  = setCache,
@@ -21,8 +30,7 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Returns a matrix that is the inverse of 'x'
-
+## Returns a matrix that is the inverse of 'x'. Uses cached result if possible.
 cacheSolve <- function(x, ...) {
       ## First try to get result from the cache
 	result <- x$getCache() 
@@ -32,7 +40,7 @@ cacheSolve <- function(x, ...) {
 		return(result)
 	}
 
-	## There is no data in cache yet
+	## There is no data in the cache yet
 
 	## Calculate inverse matrix
 	matrixToSolve <- x$get()
